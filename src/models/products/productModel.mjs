@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
 
-const Shoes = new Schema({
+const Product = new Schema({
     image: {type: String, required: true},
     title: {type: String, required: true},
     rating: {type: Number, required: true},
@@ -15,6 +15,6 @@ const Shoes = new Schema({
 })
 
 
-const ShoesModel = mongoose.model('ShoesModel', Shoes)
+const ProductModel = mongoose.model('ProductModel', Product)
 
-export default ShoesModel
+export default ProductModel

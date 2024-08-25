@@ -1,6 +1,6 @@
 import passport from "passport";
 import Strategy from "passport-local";
-import UserModel from "../models/auth/users.mjs";
+import UserModel from "../models/auth/usersModel.mjs";
 import { comparePassword } from "../utils/passwordHash.mjs/crypt.mjs";
 
 
