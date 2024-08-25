@@ -1,5 +1,5 @@
 import hashPassword from "../utils/passwordHash.mjs/crypt.mjs";
-import UserModel from "../models/auth/users.mjs";
+import UserModel from "../models/auth/usersModel.mjs";
 import { validationResult, matchedData } from "express-validator";
 
 const getUsers = async (req, res) => {

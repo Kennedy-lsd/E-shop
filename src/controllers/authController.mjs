@@ -1,6 +1,6 @@
 import pass from "../authStrategy/local.mjs";
 import passport from "passport";
-import UserModel from "../models/auth/users.mjs";
+import UserModel from "../models/auth/usersModel.mjs";
 
 passport.serializeUser((user, done) => {
   console.log("Inside serializer");
