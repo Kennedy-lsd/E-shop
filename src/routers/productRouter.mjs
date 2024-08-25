@@ -1,7 +1,19 @@
 import { Router } from "express";
-import productController from "../controllers/productController.mjs";
+import { getProducts, getProduct, createProduct, deleteProduct, updateProduct } from "../controllers/productController.mjs"
+import { checkSchema } from "express-validator";
+import { createProductValidation } from "../validationSchemas/productsValidationSchema.mjs";
 
 const router = Router()
 
 
-export default router.get('/api/products', productController)
+router.get('/api/products', getProducts)
+
+router.get('/api/products/:id', getProduct)
+
+router.post('/api/products', checkSchema(createProductValidation), createProduct)
+
+router.delete('/api/products/:id', deleteProduct)
+
+router.patch('/api/products/:id', updateProduct)
+
+export default router
