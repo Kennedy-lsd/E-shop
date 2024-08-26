@@ -38,11 +38,10 @@ app.get('/', (req, res) => {
 })
 
 
-
 const PORT = process.env.PORT || 3000;
 
 mongoose
-.connect("mongodb://localhost:27017/change_it")
+.connect("mongodb+srv://Admin:o9kRC99EwBjK0gqT@cluster-proj.1m91v.mongodb.net/?retryWrites=true&w=majority&appName=Cluster-proj")
 .then(() => console.log("Connected"))
 .catch((err) => console.log(err));
 
