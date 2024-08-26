@@ -1,5 +1,6 @@
 import ProductModel from "../models/products/ProductModel.mjs";
 import { validationResult } from "express-validator";
+import mongoose from "mongoose";
 
 const getProducts = async (req, res) => {
   try {
@@ -13,9 +14,31 @@ const getProducts = async (req, res) => {
   }
 };
 
+const getProductsByRating = async (req, res) => {
+  try {
+    const { rating } = req.params;
+    const parsedRating = parseFloat(rating);
+    if (isNaN(parsedRating)) {
+      return res.status(400).json({ message: "Invalid rating value" });
+    }
+
+    const findProducts = await ProductModel.find({ rating: parsedRating });
+    if (!findProducts) {
+      res.status(404).json({ message: "Not found" });
+    }
+    res.status(200).json(findProducts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const getProduct = async (req, res) => {
   try {
     const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid product ID" });
+    }
     const product = await ProductModel.findById(id);
     if (!product) {
       return res.status(404).json({ message: "Not found" });
@@ -37,34 +60,38 @@ const createProduct = async (req, res) => {
   }
 };
 
-
 const deleteProduct = async (req, res) => {
-	try {
-		const { id } = req.params
-		const deleteProduct = await ProductModel.findByIdAndDelete(id)
-		if (!deleteProduct) {
-			return res.status(404).json({message: "Not found"})
-		}
-		res.sendStatus(200)
-	} catch (error) {
-		res.status(500).json({message: error.message})
-	}
-}
-
+  try {
+    const { id } = req.params;
+    const deleteProduct = await ProductModel.findByIdAndDelete(id);
+    if (!deleteProduct) {
+      return res.status(404).json({ message: "Not found" });
+    }
+    res.sendStatus(200);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 const updateProduct = async (req, res) => {
   try {
-    const { id } = req.params
-    const updatedProduct = await ProductModel.findByIdAndUpdate(id, req.body)
+    const { id } = req.params;
+    const updatedProduct = await ProductModel.findByIdAndUpdate(id, req.body);
     if (!updatedProduct) {
-      return res.status(404).json({message: "Not found"})
-
+      return res.status(404).json({ message: "Not found" });
     }
     const product = await ProductModel.findById(id);
-    res.status(200).json(product)
+    res.status(200).json(product);
   } catch (error) {
-    res.status(500).json({message: error.message})
+    res.status(500).json({ message: error.message });
   }
-}
+};
 
-export { getProducts, getProduct, createProduct, deleteProduct, updateProduct };
+export {
+  getProducts,
+  getProduct,
+  createProduct,
+  deleteProduct,
+  updateProduct,
+  getProductsByRating,
+};
