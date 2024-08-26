@@ -1,5 +1,5 @@
 const REQUEST_VIEWER = (req, res, next) => {
-    console.log(`Method ${req.method} on  ${req.url}  url`)
+    console.log(`Method ${req.method} on  ${req.url} url`)
     next()
   }
 

@@ -56,9 +56,9 @@ export const createProductValidation = {
         notEmpty: {
             errorMessage: "Code can't be empty"
         },
-        isLength: ({
-            min: 6,
-            max: 6
-    })
+        isLength: {
+            options: { min: 9, max: 14 },
+            errorMessage: "Code must be longer than 8"
+        }
     }
 }
