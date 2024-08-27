@@ -34,7 +34,7 @@ export default passport.use(
 
 			let findUser;
 			try {
-				findUser = await GoogleModel.findOne({ id: profile.id });
+				findUser = await GoogleModel.findOne({ email: profile["emails"][0].value });
 			} catch (err) {
 				return done(err, null);
 			}
