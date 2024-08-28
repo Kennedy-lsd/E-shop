@@ -1,4 +1,4 @@
-import hashPassword from "../utils/passwordHash.mjs/crypt.mjs";
+import {hashPassword} from "../utils/passwordHash.mjs/crypt.mjs";
 import UserModel from "../models/auth/usersModel.mjs";
 import { validationResult, matchedData } from "express-validator";
 
@@ -28,20 +28,6 @@ const getUser = async (req, res) => {
 
 }
 
-const createUser = async (req, res) => {
-	const result = validationResult(req);
-	if (!result.isEmpty()) return res.status(400).send(result.array());
-	const data = matchedData(req);
-	data.password = await hashPassword(data.password);
-	const newUser = new UserModel(data);
-	try {
-		const savedUser = await newUser.save();
-		return res.status(201).json(savedUser)
-	} catch (err) {
-		return res.status(400).json({message: err.message});
-	}
-};
-
 const deleteUser = async (req, res) => {
 	try {
 		const { id } = req.params
@@ -55,4 +41,22 @@ const deleteUser = async (req, res) => {
 	}
 }
 
-export {getUsers, createUser, getUser, deleteUser}
+
+const updateUser = async (req, res) => {
+	const result = validationResult(req)
+	if (!result.isEmpty()) return res.status(400).send(result.array());
+	const data = matchedData(req)
+	try {
+		const { id } = req.params
+		data.password = await hashPassword(data.password);
+		const updatedUser = await UserModel.findByIdAndUpdate(id, data, {new: true})
+		if (!updatedUser) {
+			return res.status(404).json({message: "Not found"})
+		}
+		res.status(200).json(updatedUser)
+	} catch (error) {
+		res.status(500).json({message: error.message})
+	}
+}
+
+export {getUsers, getUser, deleteUser, updateUser}
