@@ -6,8 +6,8 @@ import redisClient from "../utils/db/redisSetUp.mjs";
 const getProducts = async (req, res) => {
   try {
     const products = await ProductModel.find();
-    if (!products) {
-      res.status(404).json({ message: "Not found" });
+    if (products.length === 0) {
+      return res.status(404).json({ message: "Not found" });
     }
     res.status(200).json(products);
   } catch (error) {

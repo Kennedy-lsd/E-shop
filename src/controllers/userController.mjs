@@ -5,8 +5,10 @@ import { validationResult, matchedData } from "express-validator";
 const getUsers = async (req, res) => {
 	try{
 	const findUsers = await UserModel.find()
-	if (!findUsers) return res.sendStatus(404);
-	return res.send(findUsers);
+	if (findUsers.length === 0) {
+		return res.status(404).json({ message: 'No users found' });
+	}
+	res.status(200).json(findUsers)
 	}
 	catch(error){
 		res.status(500).json({message: error.message})
