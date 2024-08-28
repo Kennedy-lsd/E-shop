@@ -7,8 +7,8 @@ const hashPassword = async (password) => {
     return bcypt.hash(password, salt)
 }
 
-export const comparePassword = (password, hashed) => {
+const comparePassword = (password, hashed) => {
     return bcypt.compareSync(password, hashed)
 }
 
-export default hashPassword
+export {hashPassword, comparePassword}

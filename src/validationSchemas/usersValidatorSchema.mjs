@@ -3,6 +3,9 @@ export const createUserValidationSchema = {
         notEmpty: {
             errorMessage: "Email can't be empty"
         },
+        isEmail: {
+            errorMessage: "Email must include the @ symbol"
+        },
         isString: {
             errorMessage: "Email must be a string"
         }
