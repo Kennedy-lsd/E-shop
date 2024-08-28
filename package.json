@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "dev": "nodemon src/index.mjs"
   },
   "keywords": [],
@@ -28,9 +28,14 @@
     "passport-google-oauth": "^2.0.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
-    "redis": "^4.7.0"
+    "redis": "^4.7.0",
+    "save-dev": "^0.0.1-security",
+    "sinon": "^18.0.0",
+    "supertest": "^7.0.0"
   },
   "devDependencies": {
+    "chai": "^5.1.1",
+    "mocha": "^10.7.3",
     "nodemon": "^3.1.4"
   },
   "type": "module"
