@@ -35,7 +35,7 @@ export default passport.use(
       let findUser;
       try {
         findUser = await GoogleModel.findOne({
-          email: profile["emails"][0].value
+          email: profile["emails"][0].value,
         });
       } catch (err) {
         return done(err, null);
@@ -44,7 +44,7 @@ export default passport.use(
         if (!findUser) {
           const newUser = new GoogleModel({
             email: profile["emails"][0].value,
-			username: profile["name"]["givenName"],
+            username: profile["name"]["givenName"],
           });
           const newSavedUser = await newUser.save();
           return done(null, newSavedUser);
