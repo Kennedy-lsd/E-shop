@@ -9,7 +9,8 @@ const redisClient = createClient({
   url: REDIS_URL,
 });
 
-redisClient
+const ConnectionToRedis = async () => {
+  await redisClient
   .connect()
   .then(() => {
     console.log("Connected to Redis");
@@ -17,5 +18,6 @@ redisClient
   .catch((error) => {
     console.error("Could not connect to Redis:", error);
   });
+}
 
-export default redisClient;
+export {redisClient, ConnectionToRedis};

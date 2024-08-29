@@ -1,7 +1,7 @@
 import ProductModel from "../models/products/ProductModel.mjs";
 import { validationResult } from "express-validator";
 import mongoose from "mongoose";
-import redisClient from "../utils/db/redisSetUp.mjs";
+import {redisClient} from "../utils/db/redisSetUp.mjs";
 
 const getProducts = async (req, res) => {
   try {
@@ -78,6 +78,9 @@ const createProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid product ID" });
+    }
     const deleteProduct = await ProductModel.findByIdAndDelete(id);
     if (!deleteProduct) {
       return res.status(404).json({ message: "Not found" });
@@ -91,6 +94,9 @@ const deleteProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid product ID" });
+    }
     const updatedProduct = await ProductModel.findByIdAndUpdate(id, req.body);
     if (!updatedProduct) {
       return res.status(404).json({ message: "Not found" });
