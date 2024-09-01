@@ -3,9 +3,8 @@ import request from "supertest";
 import express from 'express';
 import sinon from 'sinon';
 import routes from '../src/routers/usersRouter.mjs';
-import UserModel from '../src/models/auth/usersModel.mjs'; // adjust the path as necessary
+import UserModel from "../src/models/auth/usersModel.mjs";
 import { redisClient } from "../src/utils/db/redisSetUp.mjs";
-import * as hashUtils from '../src/utils/passwordHash.mjs/crypt.mjs'
 describe('GET /api/users', () => {
     let app;
 
