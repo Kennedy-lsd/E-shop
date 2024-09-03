@@ -25,7 +25,6 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ error: "Email already exists" });
     }
 
-    // Hash the password
     data.password = await hashPassword(data.password);
 
     await UserModel.create(data);
@@ -42,13 +41,13 @@ const authenticateUser = async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    // Compare passwords
     if (!comparePassword(req.body.password, user.password))
       throw new Error("inccorect password");
 
+    const username = user.username;
     // Generate JWT token
     const token = jwt.sign({ email: user.email }, "secret");
-    res.status(200).json({ token });
+    res.status(200).json({ token, username });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
