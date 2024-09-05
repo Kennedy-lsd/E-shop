@@ -1,6 +1,6 @@
 import {hashPassword} from "../utils/passwordHash.mjs/crypt.mjs";
 import UserModel from "../models/auth/usersModel.mjs";
-import { validationResult, matchedData } from "express-validator";
+import { validationResult, matchedData, body } from "express-validator";
 import mongoose from "mongoose";
 import {redisClient} from "../utils/db/redisSetUp.mjs";
 
@@ -47,6 +47,21 @@ const getUser = async (req, res) => {
 
 }
 
+const createUser = async (req, res) => {
+	const result = validationResult(req)
+	if (!result.isEmpty()) return res.status(400).json(result.array())
+	const data = matchedData(req)
+	console.log(data)
+	data.password = await hashPassword(data.password);
+	try {
+		const newUser = await UserModel.create(data)
+		res.status(201).json(newUser)
+	} catch (error) {
+		res.status(500).json({message: error.message})
+	}
+}
+
+
 const deleteUser = async (req, res) => {
 	try {
 		const { id } = req.params
@@ -81,4 +96,4 @@ const updateUser = async (req, res) => {
 	}
 }
 
-export {getUsers, getUser, deleteUser, updateUser}
+export {getUsers, getUser, createUser, deleteUser, updateUser}
