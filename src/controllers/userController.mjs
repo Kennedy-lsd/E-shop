@@ -65,19 +65,16 @@ const deleteUser = async (req, res) => {
 
 
 const updateUser = async (req, res) => {
-	const result = validationResult(req)
-	if (!result.isEmpty()) return res.status(400).send(result.array());
-	const data = matchedData(req)
 	try {
 		const { id } = req.params
 		if (!mongoose.Types.ObjectId.isValid(id)) {
 			return res.status(400).json({ message: "Invalid product ID" });
 		  }
-		data.password = await hashPassword(data.password);
-		const updatedUser = await UserModel.findByIdAndUpdate(id, data, {new: true})
-		if (!updatedUser) {
+		const User = await UserModel.findByIdAndUpdate(id, req.body)
+		if (!User) {
 			return res.status(404).json({message: "Not found"})
 		}
+		const updatedUser = await UserModel.findById(id)
 		res.status(200).json(updatedUser)
 	} catch (error) {
 		res.status(500).json({message: error.message})
