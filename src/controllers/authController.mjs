@@ -14,7 +14,7 @@ const getStatus = async (req, res) => {
 
 const registerUser = async (req, res) => {
   const result = validationResult(req);
-  if (!result.isEmpty()) return res.status(400).send(result.array());
+  if (!result.isEmpty()) return res.status(400).json({ result: result.array() });
 
   const data = matchedData(req);
 
