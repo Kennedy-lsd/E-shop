@@ -68,10 +68,14 @@ const createProduct = async (req, res) => {
   const result = validationResult(req);
   if (!result.isEmpty()) return res.status(400).send(result.array());
   try {
-    const product = await ProductModel.create(req.body);
+    const product = new ProductModel({
+      image: req.file.path,
+      ...req.body,
+    })
+    await product.save()
     res.status(200).json(product);
   } catch (error) {
-    res.status(500).json({ message: error });
+    res.status(500).json({ message: error.message });
   }
 };
 

@@ -1,10 +1,4 @@
 export const createProductValidation = {
-    image: {
-        isString: true,
-        notEmpty: {
-            errorMessage: "Required image"
-        }
-    },
     title: {
         isString: {
             errorMessage: "Title must be a string"

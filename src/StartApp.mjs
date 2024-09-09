@@ -10,12 +10,21 @@ import usersRouter from "./routers/usersRouter.mjs";
 import cors from "cors";
 import MongoStore from "connect-mongo";
 import "./authStrategy/google.mjs";
+import bodyParser from "body-parser";
+import path from "path"
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const parentDir = path.dirname(__dirname);  
 
 export function StartApp() {
   const app = express();
 
   //Middlewares
   app.use(json());
+  app.use('/uploads', express.static(path.join(parentDir, 'uploads')));
+  app.use(bodyParser.urlencoded({extended: false}))
   app.use(REQUEST_VIEWER);
   app.use(cors());
   app.use(
