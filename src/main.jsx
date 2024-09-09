@@ -3,7 +3,8 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { SwaggerPage } from "./pages/SwaggerPage.jsx";
 import { RegisterPage } from "./pages/RegisterPage.jsx";
-import { LoginForm } from "./components/LoginForm.jsx";
+import { MainPage } from "./pages/MainPage.jsx";
+import { LoginPage } from "./pages/LoginPage.jsx";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./index.scss";
 
@@ -18,8 +19,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginForm />,
+    element: <LoginPage />,
   },
+  {
+    path: "/shop/main",
+    element: <MainPage />
+  }
 ]);
 
 createRoot(document.getElementById("root")).render(
