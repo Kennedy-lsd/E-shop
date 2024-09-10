@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { Products } from "./Products";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import Navbar from "../components/NavBar";
 
 function Main() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [username, setUsername] = useState(null);
 
@@ -22,10 +23,10 @@ function Main() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('jwtToken');
-    localStorage.removeItem('username');
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("username");
     setUsername(null);
-    navigate("/login"); 
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -35,25 +36,16 @@ function Main() {
     } else {
       console.error("User is undefined");
     }
-  }, []); 
-
+  }, []);
 
   useEffect(() => {
     fetchProducts();
-  }, []); // REMEMBER [] == run once
+  }, []);
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      {/* Minimal Navbar */}
-      <nav className="navbar navbar-light bg-light">
-        <div className="container">
-          <a className="navbar-brand" href="#">
-            ShopHome
-          </a>
-          <span>{username ? username : "Guest"}</span>
-          {username && <button onClick={handleLogout} className="btn btn-secondary">Logout</button>}
-        </div>
-      </nav>
+      {/* Reusable Navbar */}
+      <Navbar username={username} handleLogout={handleLogout} />
 
       {/* Main Content */}
       <div className="container my-4 flex-grow-1">

@@ -21,7 +21,7 @@ export function LoginForm() {
       });
 
       if (!response.ok) {
-        throw new Error("Login failed");
+        throw new Error(response.error);
       }
 
       const data = await response.json();
