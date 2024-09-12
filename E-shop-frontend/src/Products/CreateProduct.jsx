@@ -24,6 +24,7 @@ export function CreateProduct() {
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("username");
     setUsername(null);
+    navigate("/login");
   };
 
   const handleChange = (event) => {
@@ -96,7 +97,7 @@ export function CreateProduct() {
 
   return (
     <div>
-      <Navbar username={username} onLogout={handleLogout} />
+      <Navbar username={username} handleLogout={handleLogout} />
       <div className="container mt-5">
         <h2 className="text-center mb-4">Create a New Product</h2>
 
