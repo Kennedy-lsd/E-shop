@@ -6,15 +6,14 @@ export function Products({ product }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    // Navigate to the product details page with product ID
     navigate(`/shop/main/details/${product._id}`);
   };
 
   return (
     <div
       className="card-body text-center p-2"
-      onClick={handleClick} // Add click handler
-      style={{ cursor: "pointer" }} // Make it look clickable
+      onClick={handleClick} 
+      style={{ cursor: "pointer" }} 
     >
       <img
         src={`http://localhost:8000/${product.image}`}

@@ -38,7 +38,7 @@ export function ProductDetails() {
     if (productId) {
       fetchProductDetails();
     }
-  }, [productId]); // productId is the only dependency here
+  }, [productId]); 
 
   if (!product) {
     return <div>Loading...</div>;

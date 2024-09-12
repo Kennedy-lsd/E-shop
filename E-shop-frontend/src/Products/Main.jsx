@@ -6,7 +6,7 @@ import Navbar from "../components/NavBar";
 
 function Main() {
   const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(null);
   const [username, setUsername] = useState(null);
 
   const fetchProducts = async () => {
@@ -20,6 +20,10 @@ function Main() {
     } catch (error) {
       console.error(error.message);
     }
+  };
+
+  const handleCreateClick = () => {
+    navigate("/shop/main/create");
   };
 
   const handleLogout = () => {
@@ -38,9 +42,14 @@ function Main() {
     }
   }, []);
 
+  
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  if (!products) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="d-flex flex-column min-vh-100">
@@ -64,6 +73,15 @@ function Main() {
             </div>
           ))}
         </div>
+      </div>
+      <div className="container d-flex justify-content-center pb-4">
+        <button
+          className="w-30 text-center mt-auto btn btn-primary"
+          type="submit"
+          onClick={handleCreateClick}
+        >
+          Create new Product
+        </button>
       </div>
 
       {/* Sticky Footer */}
