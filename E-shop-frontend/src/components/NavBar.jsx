@@ -1,10 +1,16 @@
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 function Navbar({ username, handleLogout }) {
+  const navigate = useNavigate()
+
+  const handleToMainPage = () => {
+    navigate("/shop/main")
+  }
   return (
     <nav className="navbar navbar-light bg-light">
       <div className="container">
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand" onClick={handleToMainPage} style={{ cursor: "pointer" }}>
           ShopHome
         </a>
         <span>{username ? username : "Guest"}</span>

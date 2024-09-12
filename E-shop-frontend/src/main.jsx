@@ -6,6 +6,7 @@ import { RegisterPage } from "./pages/RegisterPage.jsx";
 import { MainPage } from "./pages/MainPage.jsx";
 import { LoginPage } from "./pages/LoginPage.jsx";
 import { ProductDetailsPage } from "./pages/ProductDetailsPage.jsx";
+import { CreateProductPage } from "./pages/CreateProductPage.jsx";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./index.scss";
 
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/shop/main",
     element: <MainPage />
+  },
+  {
+    path: "/shop/main/create",
+    element: <CreateProductPage />
   },
   {
     path: "/shop/main/details/:productId",
