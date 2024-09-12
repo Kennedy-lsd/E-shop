@@ -10,4 +10,10 @@ const ConnectionToMongo = async () => {
     .catch((err) => console.log(err));
 };
 
+process.on("SIGINT", async () => {
+  console.log("SIGINT signal received: closing MongoDB connection");
+  await mongoose.connection.close();
+  process.exit(0);
+});
+
 export default ConnectionToMongo;
