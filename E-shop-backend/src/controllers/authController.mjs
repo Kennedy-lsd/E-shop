@@ -45,9 +45,10 @@ const authenticateUser = async (req, res) => {
       throw new Error("inccorect password");
 
     const username = user.username;
+    const _id = user._id
     // Generate JWT token
     const token = jwt.sign({ email: user.email }, "secret");
-    res.status(200).json({ token, username });
+    res.status(200).json({ token, username, _id });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

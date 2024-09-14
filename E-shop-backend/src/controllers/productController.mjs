@@ -1,19 +1,31 @@
 import ProductModel from "../models/products/ProductModel.mjs";
 import { validationResult } from "express-validator";
 import mongoose from "mongoose";
-import {redisClient} from "../utils/db/redisSetUp.mjs";
+import { redisClient } from "../utils/db/redisSetUp.mjs";
 
 const getProducts = async (req, res) => {
   try {
-    const products = await ProductModel.find();
-    if (products.length === 0) {
-      return res.status(404).json({ message: "Not found" });
+    const { department } = req.query;
+
+    let filters = {};
+
+    if (department) {
+      filters.department = department;
     }
+
+    // Query the database with the filters (if any) !!!!!!!!!!!!
+    const products = await ProductModel.find(filters);
+
+    if (products.length === 0) {
+      return res.status(404).json({ message: department ? `No products found for department: ${department}` : 'No products found' });
+    }
+
     res.status(200).json(products);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Error fetching products", error });
   }
 };
+
 
 const getProductsByRating = async (req, res) => {
   try {
@@ -32,6 +44,9 @@ const getProductsByRating = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+
 
 const getProduct = async (req, res) => {
   try {
@@ -71,8 +86,8 @@ const createProduct = async (req, res) => {
     const product = new ProductModel({
       image: req.file.path,
       ...req.body,
-    })
-    await product.save()
+    });
+    await product.save();
     res.status(200).json(product);
   } catch (error) {
     res.status(500).json({ message: error.message });
