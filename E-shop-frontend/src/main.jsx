@@ -7,7 +7,8 @@ import { MainPage } from "./pages/MainPage.jsx";
 import { LoginPage } from "./pages/LoginPage.jsx";
 import { ProductDetailsPage } from "./pages/ProductDetailsPage.jsx";
 import { CreateProductPage } from "./pages/CreateProductPage.jsx";
-import "bootstrap/dist/js/bootstrap.bundle.min";
+import { UserProfile } from "./User/UserProfile.jsx";
+import "bootstrap/dist/css/bootstrap.min.css"; 
 import "./index.scss";
 
 const router = createBrowserRouter([
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/shop/main/details/:productId",
     element: <ProductDetailsPage />
+  },
+  {
+    path: "/shop/main/user/:userId",
+    element: <UserProfile />
   }
 ]);
 
