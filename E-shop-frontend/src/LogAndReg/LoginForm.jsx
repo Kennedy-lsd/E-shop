@@ -25,10 +25,11 @@ export function LoginForm() {
       }
 
       const data = await response.json();
-      const { token, username: returnedUsername } = data;
+      const { token, username: returnedUsername, _id } = data;
 
       localStorage.setItem("jwtToken", token);
       localStorage.setItem("username", returnedUsername);
+      localStorage.setItem("userId", _id);
 
       setUsername(returnedUsername);
       fetchProtectedData(token);

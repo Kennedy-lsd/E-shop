@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import Navbar from "../components/NavBar";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 
 export function CreateProduct() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [username, setUsername] = useState(null);
   const [formData, setFormData] = useState({
     image: null,
@@ -18,7 +18,7 @@ export function CreateProduct() {
     code: "",
   });
 
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
 
   const handleLogout = () => {
     localStorage.removeItem("jwtToken");
@@ -82,7 +82,7 @@ export function CreateProduct() {
         department: "",
         code: "",
       });
-      navigate("/shop/main")
+      navigate("/shop/main");
     } catch (error) {
       setError(error.message); // Set error message in state
     }
@@ -190,15 +190,19 @@ export function CreateProduct() {
           </div>
           <div className="form-group mb-3">
             <label htmlFor="department">Department</label>
-            <input
-              type="text"
+            <select
               className="form-control"
               name="department"
               value={formData.department}
               onChange={handleChange}
               required
-            />
+            >
+              <option value="">Select Department</option>
+              <option value="shoes">Shoes</option>
+              <option value="t-shirts">T-Shirts</option>
+            </select>
           </div>
+
           <div className="form-group mb-3">
             <label htmlFor="code">Product Code</label>
             <input
