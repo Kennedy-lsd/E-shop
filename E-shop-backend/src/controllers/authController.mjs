@@ -36,7 +36,7 @@ const registerUser = async (req, res) => {
 
 const authenticateUser = async (req, res) => {
   try {
-    const user = await UserModel.findOne({ email: req.body.email });
+    const user = await UserModel.findOne({ email: req.body.email, username: req.body.username });
     if (!user) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
