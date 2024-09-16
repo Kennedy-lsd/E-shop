@@ -63,6 +63,17 @@ function Main() {
     fetchProducts(); 
   }, []);
 
+  if (!products) {
+    return (
+      <div className="container">
+        <div className="text-center">
+          <div className="spinner-border text-primary" role="status">
+            <span className="sr-only">L</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="d-flex flex-column min-vh-100">
