@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { StarRating } from "../components/StarRating";
 import Navbar from "../components/NavBar";
+import { Footer } from "../components/Footer";
 
 export function ProductDetails() {
   const { productId } = useParams();
@@ -93,6 +94,7 @@ export function ProductDetails() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
-import {UserDetails} from './UserDetail'
+import { UserDetails } from "./UserDetail";
+import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import "../index.scss";
+import { useNavigate } from "react-router-dom";
 
 function Swagger() {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -19,6 +22,10 @@ function Swagger() {
     } catch (error) {
       console.error("Error: ", error);
     }
+  };
+
+  const handleToMainPage = () => {
+    navigate("/shop/main");
   };
 
   const createUser = async () => {
@@ -50,64 +57,78 @@ function Swagger() {
 
   useEffect(() => {
     fetchUsers();
-    document.title = "Swagger";
   }, []);
 
   return (
-    <div>
-      <div className="swaggerLable">Welcome to Swagger !</div>
+    <div className="container my-5">
+      <h1 className="text-center mb-4 swaggerLable">Welcome to Swagger!</h1>
+      <button className="btn btn-secondary mb-4" onClick={handleToMainPage}>
+        Back to Main Page
+      </button>
       <form
+        className="mb-4"
         onSubmit={(event) => {
           event.preventDefault();
           createUser();
         }}
       >
-        <div>
-          <label htmlFor="username">Username: </label>
+        <div className="mb-3">
+          <label htmlFor="username" className="form-label">
+            Username:
+          </label>
           <input
             type="text"
-            name="username"
+            className="form-control"
             id="username"
             value={username}
             onChange={(event) => {
               setUsername(event.target.value);
             }}
+            required
           />
         </div>
-        <br />
-        <div>
-          <label htmlFor="email">Email: </label>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            Email:
+          </label>
           <input
-            type="text"
-            name="email"
+            type="email"
+            className="form-control"
             id="email"
             value={email}
             onChange={(event) => {
               setEmail(event.target.value);
             }}
+            required
           />
         </div>
-        <br />
-        <div>
-          <label htmlFor="password">Password: </label>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">
+            Password:
+          </label>
           <input
-            type="text"
-            name="password"
+            type="password"
+            className="form-control"
             id="password"
             value={password}
             onChange={(event) => {
               setPassword(event.target.value);
             }}
+            required
           />
         </div>
-        <div>
-          <button>Create</button>
-        </div>
+        <button className="btn btn-primary">Create User</button>
       </form>
-      <div>
-        {users.map((user) => (
-          <UserDetails key={user._id} user={user} setUsers={setUsers} />
-        ))}
+
+      <div className="card">
+        <div className="card-header">User List</div>
+        <ul className="list-group list-group-flush">
+          {users.map((user) => (
+            <li key={user._id} className="list-group-item">
+              <UserDetails key={user._id} user={user} setUsers={setUsers} />
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

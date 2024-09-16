@@ -7,9 +7,14 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 function Navbar({ username, handleLogout }) {
   const navigate = useNavigate();
   const [userId, setUserId] = useState(null);
+  const [adminName, setAdminName] = useState(null);
 
   useEffect(() => {
     const storedUserId = localStorage.getItem("userId");
+    const storedAdminName = localStorage.getItem("username");
+    if (storedAdminName === "admin") {
+      setAdminName(storedAdminName);
+    }
     if (storedUserId) {
       setUserId(storedUserId);
     }
@@ -17,6 +22,10 @@ function Navbar({ username, handleLogout }) {
 
   const handleToMainPage = () => {
     navigate("/shop/main");
+  };
+
+  const handleToSwagger = () => {
+    navigate("/admin/swagger");
   };
 
   const handleProfileClick = () => {
@@ -81,6 +90,21 @@ function Navbar({ username, handleLogout }) {
                               View Profile
                             </a>
                           </li>
+                          {adminName && (
+                            <div>
+                              <li>
+                                <hr className="dropdown-divider" />
+                              </li>
+                              <li>
+                                <a
+                                  className="dropdown-item"
+                                  onClick={handleToSwagger}
+                                >
+                                  Swagger
+                                </a>
+                              </li>
+                            </div>
+                          )}
                           <li>
                             <hr className="dropdown-divider" />
                           </li>

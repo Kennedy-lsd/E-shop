@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Navbar from "../components/NavBar";
+import { Footer } from "../components/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 
@@ -98,7 +99,7 @@ export function CreateProduct() {
   return (
     <div>
       <Navbar username={username} handleLogout={handleLogout} />
-      <div className="container mt-5">
+      <div className="container mt-5 mb-3">
         <h2 className="text-center mb-4">Create a New Product</h2>
 
         {error && (
@@ -219,6 +220,7 @@ export function CreateProduct() {
           </button>
         </form>
       </div>
+      <Footer />
     </div>
   );
 }

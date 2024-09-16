@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/NavBar";
+import { Footer } from "../components/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import "./UserProfile.scss";
@@ -98,7 +99,7 @@ export function UserProfile() {
   }
 
   return (
-    <div>
+    <div className="d-flex flex-column min-vh-100">
       <Navbar username={username} handleLogout={handleLogout} />
       <div className="container mt-4 ">
         <div className="profile-header text-center">
@@ -144,6 +145,7 @@ export function UserProfile() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
