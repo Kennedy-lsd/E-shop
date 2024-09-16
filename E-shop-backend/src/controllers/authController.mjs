@@ -14,7 +14,8 @@ const getStatus = async (req, res) => {
 
 const registerUser = async (req, res) => {
   const result = validationResult(req);
-  if (!result.isEmpty()) return res.status(400).json({ result: result.array() });
+  if (!result.isEmpty())
+    return res.status(400).json({ result: result.array() });
 
   const data = matchedData(req);
 
@@ -36,23 +37,30 @@ const registerUser = async (req, res) => {
 
 const authenticateUser = async (req, res) => {
   try {
-    const user = await UserModel.findOne({ email: req.body.email, username: req.body.username });
+    const user = await UserModel.findOne({ email: req.body.email });
     if (!user) {
-      return res.status(401).json({ error: "Invalid credentials" });
+      return res.status(401).json({ error: "Invalid Email" });
     }
 
-    if (!comparePassword(req.body.password, user.password))
-      throw new Error("inccorect password");
+    const { username, _id, password } = user;
 
-    const username = user.username;
-    const _id = user._id
-    // Generate JWT token
-    const token = jwt.sign({ email: user.email }, "secret");
-    res.status(200).json({ token, username, _id });
+    if (!comparePassword(req.body.password, password)) {
+      return res.status(401).json({ error: "Invalid Username or Password" });
+    }
+
+    if (req.body.username !== username) {
+      return res.status(401).json({ error: "Invalid Username or Password" });
+    }
+
+    // Generate JWT token 
+    const token = jwt.sign({ email: user.email }, "secret")
+
+    return res.status(200).json({ token, username, _id });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
 
 const getUser = async (req, res) => {
   try {
